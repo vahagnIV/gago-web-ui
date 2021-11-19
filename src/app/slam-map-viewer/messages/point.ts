@@ -19,8 +19,8 @@ export class Point {
         return 24;
     }
 
-    asFloat32Array():Float32Array {
-        return new Float32Array([this.x, this.y, this.z]);
+    asFloat32Array(scale: number = 1): Float32Array {
+        return new Float32Array([this.x * scale, this.y * scale, this.z * scale]);
     }
 
     x: number = 0;

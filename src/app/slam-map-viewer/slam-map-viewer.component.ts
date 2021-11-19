@@ -12,6 +12,7 @@ import { MapPointDeleted } from './messages/map-point-deleted';
 import { KeyFramePositionUpdated } from './messages/keyframe-position-updated';
 import { MapPointGeometryUpdated } from './messages/map-point-geometry-updated';
 
+declare var glm: any;
 declare var ROSLIB: any;
 
 @Component({
@@ -117,6 +118,7 @@ export class SlamMapViewerComponent implements OnInit, AfterViewInit {
 
   initGl(): void {
 
+
     this.canvas.nativeElement.style.width = '100%';
     this.canvas.nativeElement.style.height = '100%';
     // ...then set the internal size to match
@@ -133,7 +135,7 @@ export class SlamMapViewerComponent implements OnInit, AfterViewInit {
     }
 
     // Set clear color to black, fully opaque
-    this.gl.clearColor(0.5, 0.5, 0.5, 1.0);
+    this.gl.clearColor(1, 1, 1, 1.0);
     // Clear the color buffer with specified clear color
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
@@ -175,6 +177,7 @@ export class SlamMapViewerComponent implements OnInit, AfterViewInit {
 
   constructor() {
     this.graph = new Graph();
+    console.log(glm.vec4(3, 2, 1, 0));
 
   }
 

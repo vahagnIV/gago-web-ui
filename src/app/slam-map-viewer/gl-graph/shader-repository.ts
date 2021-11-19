@@ -3,16 +3,17 @@ const vertexShaderSource: string = "#version 300 es\n\n" +
     "layout(location = 0) in vec3 vertexPosition_modelspace;\n\n" +
     "uniform mat4 MVP;\n\n" +
     "void main(){\n" +
+    "\tgl_PointSize = 1.0;"+
     "\tgl_Position =  MVP * vec4(vertexPosition_modelspace,1);\n" +
     "}";
 
 const fragmentShaderSource = "#version 300 es\n" +
     "precision mediump float;\n" + 
-    "out vec3 color;\n" +
+    "out vec4 color;\n" +
     "\nuniform vec3 col;\n" +
     "void main()\n" +
     "{\n" +
-    "\tcolor = col;\n" +
+    "\tcolor = vec4(col, 1);\n" +
     "}";
 
 export class ShaderRepository {
@@ -22,8 +23,9 @@ export class ShaderRepository {
     programId: number = 0;
     colorId: number = 0;
     vertexShaderId: number = 0;
+    mvp:number = 0;
 
-    loadShader(gl: any, type: number, source: any): any {
+    private loadShader(gl: any, type: number, source: any): any {
         const shader = gl.createShader(type);
 
         // Send the source to the shader object
@@ -45,7 +47,7 @@ export class ShaderRepository {
         return shader;
     }
 
-    initShaderProgram(gl: any, vertexShaderId: number, fragmentShaderId: number): any {
+    private initShaderProgram(gl: any, vertexShaderId: number, fragmentShaderId: number): any {
 
 
         // Create the shader program
@@ -70,6 +72,7 @@ export class ShaderRepository {
         this.fragmentShaderId = this.loadShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
         this.programId = this.initShaderProgram(gl, this.vertexShaderId, this.fragmentShaderId);
         this.colorId = gl.getUniformLocation(this.programId, "col");
+        this.mvp = gl.getUniformLocation(this.programId, "MVP");
     }
 
 
