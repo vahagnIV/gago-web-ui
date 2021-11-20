@@ -11,6 +11,7 @@ import { KeyFrameDeleted } from './messages/keyframe-deleted'
 import { MapPointDeleted } from './messages/map-point-deleted';
 import { KeyFramePositionUpdated } from './messages/keyframe-position-updated';
 import { MapPointGeometryUpdated } from './messages/map-point-geometry-updated';
+import {RosService} from '../ros.service'
 
 declare var glm: any;
 declare var ROSLIB: any;
@@ -143,29 +144,9 @@ export class SlamMapViewerComponent implements OnInit, AfterViewInit {
   }
 
   initRos(): void {
-    var ros = new ROSLIB.Ros({
-      url: 'ws://localhost:9090'
-    });
 
-    ros.on('connection', function () {
-      console.log('Connected to websocket server.');
-    });
-
-    ros.on('error', function (error: any) {
-      console.log('Error connecting to websocket server: ', error);
-    });
-
-    ros.on('close', function () {
-      console.log('Connection to websocket server closed.');
-    });
-
-    this.listener = new ROSLIB.Topic({
-      ros: ros,
-      name: '/orb_slam3',
-      messageType: 'std_msgs/UInt8MultiArray'
-    });
-    this.listener.subscribe((msg: any) => { this.processMessage(msg); });
-    // this.tt = new
+    this.listener = this.rosService.getTopicListener('/orb_slam3', 'std_msgs/UInt8MultiArray');
+    this.listener.subscribe((msg: any) => { this.processMessage(msg); });    
   }
 
   ngAfterViewInit() {
@@ -175,7 +156,7 @@ export class SlamMapViewerComponent implements OnInit, AfterViewInit {
 
   }
 
-  constructor() {
+  constructor(private rosService: RosService) {
     this.graph = new Graph();
     console.log(glm.vec4(3, 2, 1, 0));
 

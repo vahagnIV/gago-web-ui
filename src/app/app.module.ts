@@ -13,12 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SlamMapViewerComponent } from './slam-map-viewer/slam-map-viewer.component';
+import { RosService } from './ros.service';
+import { ControlComponent } from './control/control.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     SlamMapViewerComponent,
+    ControlComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { SlamMapViewerComponent } from './slam-map-viewer/slam-map-viewer.compon
     MatButtonModule,
     LayoutModule    
   ],
-  providers: [],
+  providers: [RosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
