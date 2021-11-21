@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SlamMapViewerComponent } from './slam-map-viewer/slam-map-viewer.component';
 import { RosService } from './ros.service';
 import { ControlComponent } from './control/control.component';
+import { VideoViewerComponent } from './video-viewer/video-viewer.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ControlComponent } from './control/control.component';
     DashboardComponent,
     SlamMapViewerComponent,
     ControlComponent,
+    VideoViewerComponent,
   ],
   imports: [
     BrowserModule,
